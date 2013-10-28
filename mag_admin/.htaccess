@@ -1,0 +1,2 @@
+php_value session.gc_maxlifetime 86400
+php_value session.save_path "/home/nzoutdoor/tmp"

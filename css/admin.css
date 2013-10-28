@@ -1,0 +1,27 @@
+* {font-size:10pt; font-family:verdana}
+
+.sortby, img.arrow{
+	cursor:pointer;
+	vertical-align: middle;
+}
+
+.nowrap {
+	white-space:nowrap;
+}
+
+.even {
+	background-color: #EEEEEE;
+}
+.odd {
+	background-color: #DDDDDD;
+}
+.even:hover, .odd:hover {
+	background-color: #BBBBBB;
+}
+
+table.maintscan {border-collapse: collapse;}
+table.maintscan td {padding: 0 5px}
+
+h1 {font-size:16pt}
+
+#Renewaldata,#Paymatedata {border:1px solid black;}

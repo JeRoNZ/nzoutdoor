@@ -1,0 +1,21 @@
+.jcarousel-skin-tango .jcarousel-container-vertical{height:310px;}
+.jcarousel-clip-vertical{height:310px;}
+.jcarousel-list{overflow:hidden;}
+.jcarousel-skin-tango .jcarousel-container-vertical li{margin-bottom:21px;overflow:hidden;}
+.jcarousel-skin-tango .jcarousel-container-vertical li strong{color:#000;font-size:30px;line-height:1.2em;float:left;width:80px;letter-spacing:-1px}
+.jcarousel-skin-tango .jcarousel-container-vertical li span{display:block;overflow:hidden;}
+.jcarousel-skin-tango .jcarousel-container-horizontal li{padding:0;background:none;float:left;width:260px;margin-right:60px}
+.jcarousel-next-vertical{right:0px;}
+.jcarousel-prev-vertical{right:21px;}
+.jcarousel-next-vertical span,.jcarousel-prev-vertical span,.jcarousel-next-horizontal span,.jcarousel-prev-horizontal span{position:absolute;top:0px;left:0px;width:15px;height:24px;background-image:url(../images/btns.png);background-repeat:no-repeat;}
+.jcarousel-next-vertical span:first-child{background-position:-15px 0;}
+.jcarousel-prev-vertical span:first-child{background-position:0 0;}
+.jcarousel-next-vertical span:first-child+span,.jcarousel-next-horizontal span:first-child+span{background-position:-15px -24px;opacity:0;}
+.jcarousel-prev-vertical span:first-child+span,.jcarousel-prev-horizontal span:first-child+span{background-position:0 -24px;opacity:0}
+.jcarousel-next-horizontal,.jcarousel-prev-horizontal{position:absolute;top:-60px;width:15px;height:24px;cursor:pointer;z-index:10;}
+.jcarousel-next-vertical,.jcarousel-next-horizontal{right:0px;}
+.jcarousel-prev-vertical,.jcarousel-prev-horizontal{right:21px;}
+.jcarousel-next-vertical span,.jcarousel-prev-vertical span{position:absolute;top:0px;left:0px;width:15px;height:24px;background-image:url(../images/btns.png);background-repeat:no-repeat;}
+.jcarousel-next-horizontal span:first-child{background-position:-15px -48px;}
+.jcarousel-prev-horizontal span:first-child{background-position:0 -48px;}
+.jcarousel-next-vertical,.jcarousel-prev-vertical{position:absolute;top:-60px;width:15px;height:24px;cursor:pointer;z-index:10;}
