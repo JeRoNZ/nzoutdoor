@@ -3,7 +3,6 @@
 if (isset($_SERVER['REQUEST_METHOD']))
     die('Shell only');
 
-
 require("../inc/functions.inc");
 require("../inc/connect.inc");
 require("../inc/securelink.php");
@@ -18,8 +17,9 @@ function sendEmail($row) {
     $array = array('eol' => "\n");
     $mime = new Mail_mime($array);
 
-    $tpl = file_get_contents('templates/expired12.xhtml');
+    $tpl = file_get_contents('templates/expired.xhtml');
     $tpl = str_replace('[NAME]', $row['forename'], $tpl);
+    $tpl = str_replace('[SURNAME]', $row['surname'], $tpl);
     $tpl = str_replace('[SID]', $row['renewal_id'], $tpl);
     $unsub = SecureLink::setToken(array('renewal_id' => $row['renewal_id'], 'email' => $row['email']), true);
     $tpl = str_replace('[UNSUB]', $unsub, $tpl);
@@ -31,7 +31,8 @@ function sendEmail($row) {
 	$extra .= $k . ': ' . $v . PHP_EOL;
     }
     $extra.='From: info@nzoutdoor.co.nz' . PHP_EOL;
-    $res = @mail($row['email'], 'NZO Hunting Magazine SPECIAL OFFER', $body, $extra, '-f info@nzoutdoor.co.nz');
+    $res = @mail($row['email'], 'NZ Outdoor Hunting Magazine Subscription Renewal', $body, $extra, '-f info@nzoutdoor.co.nz');
+    
 }
 
 if (!@$db) {
@@ -46,10 +47,18 @@ if (!@$db) {
 
 $bob = new next_issue();
 $year = $bob->current(); // 201312, so we what
-$first = $year - 100; // 201212
+$y = substr($year,0,4);
+$m = substr($year,4,2);
+$m -= 4;
+if ($m < 0) {
+    $m+=12;
+    $y--;
+}
+$first = $y.sprintf("%02d",$m);
 
 $sql = "SELECT * FROM sub_subscribers
-	WHERE country=153 AND last_issue < $year
+	WHERE country=153
+	AND last_issue < $year
 	AND last_issue >= $first
 	AND free='N'
 	AND reminderOptOut != 'Y'

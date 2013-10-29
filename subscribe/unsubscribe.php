@@ -7,6 +7,7 @@ if (! array_key_exists('auth', $_GET)) {
 }
 
 $value = SecureLink::getToken($_GET['auth']);
+
 if (!$value) {
         header('Location: /');
         die();
@@ -32,16 +33,17 @@ if (!@$db) {
     }
 }
 
-$sql = 'SELECT id FROM sub_subscribers WHERE id=?';
+$sql = 'SELECT id FROM sub_subscribers WHERE renewal_id=? and email=?';
 
-$row = $db->getOne($sql,array($value['renewal_id']));
+$row = $db->getOne($sql,$value);
 
-if ($row) {
+
+if (! $row) {
         header('Location: /');
         die();
 }
 
-$sql = "UPDATE sub_subscribers SET reminderOptOut='N' WHERE id=?";
+$sql = "UPDATE sub_subscribers SET reminderOptOut='Y' WHERE id=?";
 
 $db->execute($sql,array($row));
 ?>
