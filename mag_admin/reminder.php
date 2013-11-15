@@ -31,7 +31,7 @@ function sendEmail($row) {
 	$extra .= $k . ': ' . $v . PHP_EOL;
     }
     $extra.='From: info@nzoutdoor.co.nz' . PHP_EOL;
-    $res = @mail($row['email'], 'NZ Outdoor Hunting Magazine Subscription Renewal', $body, $extra, '-f info@nzoutdoor.co.nz');
+    $res = @mail($row['email'], 'NZ Outdoor Hunting Magazine Subscription Reminder', $body, $extra, '-f info@nzoutdoor.co.nz');
     
 }
 
@@ -65,6 +65,7 @@ $sql = "SELECT * FROM sub_subscribers
 	AND last_issue < $year
 	AND last_issue >= $first
 	AND free='N'
+	AND email LIKE '%@%'
 	AND reminderOptOut != 'Y'
 	ORDER BY last_issue DESC";
 
