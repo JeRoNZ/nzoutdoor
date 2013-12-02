@@ -458,13 +458,13 @@ HERE;
 <img alt="nzpost" style="vertical-align:middle" border="0" title="Search NZ Postcodes" src="/images/nzpost.gif"></a>
 </td>
 </tr>
+<tr>
+<td class="hform"><label for="notes">Message</label></td>
+<td class="hform2"><textarea id="notes" name="notes" cols="40" rows="5">[NOTES]</textarea></td>
+</tr>
 </tbody>
 
 <tbody>
-<tr>
-<td class="hform"><label for="notes">Notes</label></td>
-<td class="hform2"><textarea id="notes" name="notes" cols="40" rows="5">[NOTES]</textarea></td>
-</tr>
 HERE;
         $template.=<<<HERE
 <tr>
