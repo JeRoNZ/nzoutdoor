@@ -53,7 +53,6 @@ $array[0][1]=165;
 
 $country=$_POST['country'];
 if (array_key_exists('gift',$_POST)){
-    if ($_POST['gift'] == 'on')
         $country=$_POST['country2'];
 }
 
