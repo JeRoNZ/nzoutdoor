@@ -96,8 +96,7 @@ NZ Outdoor Magazine
 
 www.nzoutdoor.co.nz
 
-Tel: +64 (0)7 543 5325
-Fax: +64 (0)7 578 7896
+Tel: +64 (0)7 577 9931
 HERE;
     @mail($email, $subject, $mess, $headers,'-f '.OWNER_EMAIL);
     return '<b>'.$email.'</b><br>';
