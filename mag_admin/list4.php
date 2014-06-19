@@ -28,7 +28,7 @@ HERE
 
 function do_form(){
     $self=$_SERVER['PHP_SELF'];
-    $stamp=time()-86400*30; // force back 30 days to allow for running after the 21st
+    $stamp=time()-86400*62; // force back two months to allow for running after the 21st
     $bob = new next_issue($stamp);
     $sel = $bob->option(1);
     $form=<<<HERE
