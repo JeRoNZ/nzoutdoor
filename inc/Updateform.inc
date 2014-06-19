@@ -17,14 +17,11 @@ class update_form {
         return $out;
     }
     function years($years=1){
-        $sub[1]="One year<br>";
-        $sub[2]="Two years<br>";
-        $sub[5]="Five years";
-	if ($this->admin){
-		$sub[5].='<br>';
-        	$sub[6]="Two years + &quot;Roarin' in Reds&quot; DVD<br>";
-        	$sub[7]="Five years + &quot;Roarin' in Reds&quot; DVD";
-	}
+        $sub[1]="One year<br/>";
+        $sub[2]="Two years<br/>";
+        $sub[5]="Five years<br/>";
+        $sub[6]="Two years + free 75 Year Birthday Issue<br/>";
+        $sub[7]="Five years + free &quot;TV Wild&quot; DVD<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and 75 Year Birthday Issue";
         $out='';
         for ($i=1;$i<=7;$i++){
             $check='';

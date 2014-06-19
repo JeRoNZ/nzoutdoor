@@ -12,9 +12,7 @@ $_SESSION['POST']=$_POST;
 NZ Renewals
 1 Year - $44.90
 2 Years - $89.90
-2 Years + DVD $104.80
 5 Years $202
-5 Years + DVD $207
 */
 
 define('NZ',153);
@@ -27,10 +25,8 @@ $array[NZ][2]=95;
 $array[NZ][5]=220;
 
 // NZ New subscriptions with DVD
-//2 Years - SPECIAL $109.90 (with Roarin in Reds DVD)
-//5 Years - SPECIAL $225.00 (with Roarin in Reds DVD)
-$array[NZ][60] = 109.90; // 2 years +DVD
-$array[NZ][70] = 225;    // 5 years +DVD
+$array[NZ][60] = 95; // Two years + free 75 Year Birthday Issue
+$array[NZ][70] = 220;    //Five years + free TV Wild DVD and 75 Year Birthday Issue
 
 //NZ Renewals
 $array[NZ][11]=44.90;
@@ -38,10 +34,10 @@ $array[NZ][21]=89.90;
 $array[NZ][51]=202;
  
 // NZ Renewals with DVD
-//2 Years - SPECIAL $104.80 (with Roarin in Reds DVD)
-//5 Years - SPECIAL $207.00 (with Roarin in Reds DVD)
-$array[NZ][61] = 104.80;
-$array[NZ][71] = 207;
+//Two years + free 75 Year Birthday Issue
+//Five years + free TV Wild DVD and 75 Year Birthday Issue
+$array[NZ][61] = 89.90;
+$array[NZ][71] = 202;
 
 // AU
 $array[AUS][1]=104;
@@ -145,10 +141,16 @@ require("head.inc");
 ?>
 <div id="subscribediv">
 <p class="heading_large">Subscribe Online</p>
-<p>You are about to purchase a subscription to NZ Outdoor Hunting Magazine
-<?php if ($_SESSION['POST']['dvd']=='Y') {?>
-and a copy of the Graf Boys DVD &quot;Roarin' in Reds&quot;
-<?php }?>
+<p>You are about to purchase a subscription to NZ Outdoor Hunting Magazine<?php
+switch ($_POST['package']) {
+	case 6:
+		echo 'and a free 75th Birthday Issue';
+		break;
+	case 7:
+		echo ', a free copy of the &quot;TV Wild&quot; DVD and a free 75 Year Birthday Issue';
+		break;
+}
+?>
 .</p>
 <p>Your subscription will cost NZ $<?php echo sprintf("%5.2f",$amt)?>.</p>
 <p>Please ensure that you complete the payment process, which will return you to our website.</p>

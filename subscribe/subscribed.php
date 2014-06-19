@@ -179,8 +179,11 @@ HERE;
 $amt=sprintf("%5.2f",$_SESSION['paymate']['amt']);
 $mess.="You have requested a $years year subscription, which has been charged at NZ \${$amt}\n\n";
 
-if ($dvd=='Y'){
-	$mess.="Your subscription includes a copy of the Graf Boys DVD \"Roarin' in Reds\"\n\n";
+if ($years == 2 && $dvd == 'Y') {
+	$mess .= "Your subscription includes a free 75th Birthday Issue\n\n";
+}
+if ($years == 5 && $dvd == 'Y'){
+	$mess.="Your subscription includes a free 75th Birthday Issue and a free \"TV Wild\" DVD \n\n";
 }
 
 switch ($paymate_response){
