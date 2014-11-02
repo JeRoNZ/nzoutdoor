@@ -73,7 +73,8 @@ $amt=0;
 switch($_POST['package']){
 	case '6':
 	case '7':
-		$_SESSION['POST']['dvd']='Y';
+		#$_SESSION['POST']['dvd']='Y';
+		$_SESSION['POST']['dvd']='N';
 		if ($_POST['cid'] == '')
 			$package=$_POST['package'].'0';
 		else
@@ -147,7 +148,8 @@ switch ($_POST['package']) {
 		echo 'and a free 75th Birthday Issue';
 		break;
 	case 7:
-		echo ', a free copy of the &quot;TV Wild&quot; DVD and a free 75 Year Birthday Issue';
+		#echo ', a free copy of the &quot;TV Wild&quot; DVD and a free 75 Year Birthday Issue';
+		echo 'and a free 75th Birthday Issue';
 		break;
 }
 ?>

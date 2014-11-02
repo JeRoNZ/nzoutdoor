@@ -21,7 +21,7 @@ class update_form {
         $sub[2]="Two years<br/>";
         $sub[5]="Five years<br/>";
         $sub[6]="Two years + free 75 Year Birthday Issue<br/>";
-        $sub[7]="Five years + free &quot;TV Wild&quot; DVD<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and 75 Year Birthday Issue";
+        $sub[7]="Five years + free 75 Year Birthday Issue";
         $out='';
         for ($i=1;$i<=7;$i++){
             $check='';
