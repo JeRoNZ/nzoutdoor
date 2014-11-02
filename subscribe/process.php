@@ -73,8 +73,7 @@ $amt=0;
 switch($_POST['package']){
 	case '6':
 	case '7':
-		#$_SESSION['POST']['dvd']='Y';
-		$_SESSION['POST']['dvd']='N';
+		$_SESSION['POST']['dvd']='Y';
 		if ($_POST['cid'] == '')
 			$package=$_POST['package'].'0';
 		else
