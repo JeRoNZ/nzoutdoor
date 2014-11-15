@@ -49,7 +49,7 @@ $M = date('m');
 
 	$data = array();
 
-	for ($i=24;$i>=1;$i--){
+	for ($i=25;$i>=1;$i--){
 		$first = mktime(0,0,0,$M,1,$Y);
 		$last = mktime(23,59,59,$M,date('t',$first),$Y);
 		$first = date ('Y-m-d H:i:s',$first);
@@ -99,7 +99,30 @@ $M = date('m');
 	foreach ($data as $v) {
 		?><td><?php echo $v['R']?></td><?php
 	}
+	?></tr><tr><td>&nbsp;</td><?php
+	foreach ($data as $v) {
+		?><td valign="bottom" style="padding:0">
+<div style="background:#0F0;height:<?php echo $v['S']?>px"></div>
+<div style="background:#F00;height:<?php echo $v['R']-$v['S']?>px"></div>
+		</td><?php
+	}
 	?></tr></table><?php
+	$r=$s=0;
+	$year = array_slice($data,1,12);
+	foreach ($year as $m) {
+		$s += $m['S'];
+		$r += $m['R'];
+	}
+	echo $year[11]['M'].'/'.$year[11]['Y'].' - '.$year[0]['M'].'/'.$year[0]['Y'].', '.($r-$s).' renewals, '.$s.' subscriptions, '.$r.' total';
+?><br/><?php
+	$r=$s=0;
+	$year = array_slice($data,13,12);
+	foreach ($year as $m) {
+		$s += $m['S'];
+		$r += $m['R'];
+	}
+	echo $year[11]['M'].'/'.$year[11]['Y'].' - '.$year[0]['M'].'/'.$year[0]['Y'].', '.($r-$s).' renewals, '.$s.' subscriptions, '.$r.' total';
+
 }
 
 $method=$_SERVER['REQUEST_METHOD'];
