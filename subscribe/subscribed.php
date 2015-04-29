@@ -183,7 +183,8 @@ if ($years == 2 && $dvd == 'Y') {
 	$mess .= "Your subscription includes a free 75th Birthday Issue\n\n";
 }
 if ($years == 5 && $dvd == 'Y'){
-	$mess.="Your subscription includes a free 75th Birthday Issue and a free \"TV Wild\" DVD \n\n";
+	# removed 30/4/15 $mess.="Your subscription includes a free 75th Birthday Issue and a free \"TV Wild\" DVD \n\n";
+	$mess.="Your subscription includes a free 75th Birthday Issue\n\n";
 }
 
 switch ($paymate_response){
