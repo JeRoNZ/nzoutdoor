@@ -5,7 +5,7 @@ require("../inc/connect.inc");
 require("../inc/Next.inc");
 check_admin_cookie(TRUE);
 
-$sql="select * from sub_temp";
+$sql="select * from sub_temp order by id desc";
 
 $res=$mysqli->query($sql);
 
