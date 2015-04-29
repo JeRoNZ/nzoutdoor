@@ -75,12 +75,16 @@ function do_email ($row){
     if ($email=='')
         return '<b>'.$rid.' '.$title.' '.$surname.' Not sent</b><br>';
     $url=BASE_URL.'?rid='.$rid;
+
+	$disc='25% ';
+	if ($row['country'] ==  '13') //Australia
+		$disc = '';
     $mess=<<<HERE
 Dear $title $surname,
 
 Your subscription to NZ Outdoor Magazine is now due for renewal.
 
-You can save 25% off the cover price by renewing now. Have each issue delivered
+You can save ${disc}off the cover price by renewing now. Have each issue delivered
 to your door - free of charge - never miss an issue.
 
 To renew your subscription, please click the link below:
