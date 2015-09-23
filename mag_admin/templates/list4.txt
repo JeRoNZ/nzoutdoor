@@ -1,0 +1,21 @@
+Dear <TITLE> <SURNAME>,
+
+Your subscription to NZ Outdoor Magazine is now due for renewal.
+
+You can save <DISC> off the cover price by renewing now. Have each issue delivered
+to your door - free of charge - never miss an issue.
+
+To renew your subscription, please click the link below:
+
+<URL>
+
+Please quote your subscriber id, <RID> in any correspondence.
+
+---
+Kind regards
+
+NZ Outdoor Magazine
+
+www.nzoutdoor.co.nz
+
+Tel: +64 (0)7 577 9931
