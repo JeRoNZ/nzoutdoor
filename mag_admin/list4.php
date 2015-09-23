@@ -76,32 +76,18 @@ function do_email ($row){
         return '<b>'.$rid.' '.$title.' '.$surname.' Not sent</b><br>';
     $url=BASE_URL.'?rid='.$rid;
 
-	$disc='25% ';
+	#$disc='25% ';
+	$disc='up to $80';
 	if ($row['country'] ==  '13') //Australia
 		$disc = '';
-    $mess=<<<HERE
-Dear $title $surname,
+	$mess = file_get_contents('templates/list4.txt');
+	$mess = str_replace('<TITLE>', $title, $mess);
+	$mess = str_replace('<SURNAME>', $surname, $mess);
+	$mess = str_replace('<DISC>', $disc, $mess);
+	$mess = str_replace('<URL>', $url, $mess);
+	$mess = str_replace('<RID>', $rid, $mess);
 
-Your subscription to NZ Outdoor Magazine is now due for renewal.
-
-You can save ${disc}off the cover price by renewing now. Have each issue delivered
-to your door - free of charge - never miss an issue.
-
-To renew your subscription, please click the link below:
-
-<$url>
-
-Please quote your subscriber id, $rid in any correspondence. 
-
----
-Kind regards
-
-NZ Outdoor Magazine
-
-www.nzoutdoor.co.nz
-
-Tel: +64 (0)7 577 9931
-HERE;
+	#file_put_contents('/tmp/nz',$mess,FILE_APPEND);
     @mail($email, $subject, $mess, $headers,'-f '.OWNER_EMAIL);
     return '<b>'.$email.'</b><br>';
 }
