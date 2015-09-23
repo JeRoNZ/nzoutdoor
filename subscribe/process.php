@@ -13,6 +13,14 @@ NZ Renewals
 1 Year - $44.90
 2 Years - $89.90
 5 Years $202
+
+as of 22/09/15:
+1 Year - $49.90
+2 Years - $95
+5 Years $220
+
+e.g. no renewal discount
+
 */
 
 define('NZ',153);
@@ -29,15 +37,20 @@ $array[NZ][60] = 95; // Two years + free 75 Year Birthday Issue
 $array[NZ][70] = 220;    //Five years + free TV Wild DVD and 75 Year Birthday Issue
 
 //NZ Renewals
-$array[NZ][11]=44.90;
-$array[NZ][21]=89.90;
-$array[NZ][51]=202;
- 
+## 22/09/15 $array[NZ][11]=44.90;
+$array[NZ][11]=49.90;
+# 22/09/15 $array[NZ][21]=89.90;
+$array[NZ][21]=95;
+# 22/09/15 $array[NZ][51]=202;
+$array[NZ][51]=220;
+
 // NZ Renewals with DVD
 //Two years + free 75 Year Birthday Issue
 //Five years + free TV Wild DVD and 75 Year Birthday Issue
-$array[NZ][61] = 89.90;
-$array[NZ][71] = 202;
+# 22/09/15 $array[NZ][61] = 89.90;
+$array[NZ][61] = 95;
+# 22/09/15 $array[NZ][71] = 202;
+$array[NZ][71] = 220;
 
 // AU
 $array[AUS][1]=104;
