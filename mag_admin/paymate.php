@@ -1,12 +1,17 @@
 <?php
-die('NO');
-define('ID',864);
-
-session_start();
-
 require("../inc/connect.inc");
 require("../inc/functions.inc");
 require("../inc/Next.inc");
+if (! isset($_GET['id']))
+	die('NO');
+if (! ctype_digit($_GET['id']))
+	die('NO');
+
+define('ID',$_GET['id']);
+
+session_start();
+check_admin_cookie(TRUE);
+
 
 $sql="select data from sub_temp where id=".ID;
 
