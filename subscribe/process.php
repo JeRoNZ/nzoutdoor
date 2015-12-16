@@ -54,7 +54,9 @@ $array[NZ][71] = 220;
 
 // AU
 $array[AUS][1]=104;
-$array[AUS][11]=99;
+#$array[AUS][11]=99;
+# email 16/12/15 renewals same price as subs.
+$array[AUS][11]=104;
 
 
 // Foreigners
