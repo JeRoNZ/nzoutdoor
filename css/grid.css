@@ -2,13 +2,15 @@
 	display:inline;
 	float:left;
 	position:relative;
-	margin-left:20px;
+	margin-left:0px;
 	margin-right:5px
 }.alpha{margin-left:0}.omega{margin-right:0}.container_24 .grid_1{width:30px}.container_24 .grid_2{width:70px}.container_24 .grid_3{width:110px}.container_24 .grid_4{
 	width:300px
 }.container_24 .grid_5{
 	width:350px
-}.container_24 .grid_6{width:230px}.container_24 .grid_7{
+}.container_24 .grid_6{
+	width:300px
+}.container_24 .grid_7{
 	width:260px
 }.container_24 .grid_8{
 	width:320px;
@@ -16,7 +18,7 @@
 }.container_24 .grid_9{width:350px}.container_24 .grid_10{width:390px}.container_24 .grid_11{width:430px}.container_24 .grid_12{width:470px}.container_24 .grid_13{width:510px}.container_24 .grid_14{
 	width:950px
 }.container_24 .grid_15{
-	width:570px
+	width: 550px
 }.container_24 .grid_16{
 	width:275px
 }.container_24 .grid_17{

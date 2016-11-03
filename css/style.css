@@ -1,5 +1,11 @@
 @import"reset.css";@import"superfish.css";@import"grid.css";@import"coin-slider.css";@import"forms.css";@import"prettyPhoto.css";@import"galleryfic.css";@import"kwicks.css";@import"skin.css";
-body{background:url(../images/body-texture.jpg) 50% 0 repeat #2c2c2c;font:12px/18px Arial, Helvetica, sans-serif;color:#63615e;position:relative;min-width:960px;}
+body{
+	background: url(../images/body-texture.jpg) 50% 0 repeat #2c2c2c;
+	font: 12px Arial, Helvetica, sans-serif;
+	color: #63615e;
+	position: relative;
+	min-width: 960px;
+}
 html,body{height:100%;}
 /* Global Structure---------------------------------------- */
 .main{margin:0 auto;width:950px;}
@@ -7,13 +13,16 @@ html,body{height:100%;}
 .bg.bg2{box-shadow:none;}
 /*----- txt,links,lines,titles -----*/
 a{
-	color:#46824f;
+	color:#EC2127;
 	outline:none;
 	cursor:pointer;
 	text-decoration:none;
 }
 a:focus{border:none;outline:none;}
-a:hover{text-decoration:none;}
+a:hover{
+	text-decoration: none;
+	/* [disabled]font-size: 16px; */
+}
 .clear{clear:both;line-height:0;font-size:0;overflow:hidden;height:0;width:100%;}
 .wrapper{width:100%;overflow:hidden;}
 .extra-wrap{overflow:hidden;display:block;}
@@ -44,7 +53,9 @@ p{
 .color-1{color:#fff}
 .color-2{color:#000}
 .color-3{color:#f5b400}
-.color-4{color:#5f8c64}
+.color-4{
+	color:#F00
+}
 /*********************************boxes**********************************/
 .margin-bot{margin-bottom:35px !important}
 .spacing{margin-right:30px;}
@@ -56,7 +67,10 @@ p{
 	margin-bottom:15px
 }
 .img-indent-bot{margin-bottom:25px !important}
-.img-indent{float:left;margin:0 20px 0px 0}
+.img-indent{
+	float:left;
+	margin:0 15px 0px 0
+}
 .img-indent2{float:left;margin:0 15px 0px 0}
 .img-indent3{float:left;margin:0 10px 0px 0px}
 .img-indent-r{float:right;margin:0 13px 0px 30px}
@@ -81,7 +95,15 @@ header h1 a{
 	overflow:hidden;
 	display:block;
 }
-header nav{position:relative;z-index:99;float:right;padding:13px 0 0 0;}
+header nav{
+	position: relative;
+	z-index: 99;
+	float: left;
+	padding-top: 13px;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+}
 .shadow{box-shadow:0 0 15px rgba(0,0,0,.3)}
 .main-img{}
 header .links{overflow:hidden;}
@@ -124,7 +146,12 @@ h3{
 h3.reg{color:#f5b400;}
 h4{font-size:24px;}   
 h5{font-size:20px;}
-h6{font-size:15px;text-transform:uppercase;color:#000;margin:0 0 25px;}
+h6{
+	font-size:15px;
+	text-transform:uppercase;
+	color:#DC110C;
+	margin:0 0 25px;
+}
 h1 strong{color:#dfdfdf;font-size:70px;line-height:1.2em;display:block;letter-spacing:-3px;}
 h3.color{color:#fff;}
 
@@ -150,7 +177,7 @@ figcaption{position:absolute;bottom:0px;z-index:5;left:0px;right:0px;background:
 	padding:7px 18px 10px;
 	font-size:12px;
 	line-height:18px;
-	background-color: #386039;
+	background-color: #EC2127;
 }
 .button:hover{text-decoration:none;}
 .link{text-decoration:none;}
@@ -165,12 +192,12 @@ figcaption{position:absolute;bottom:0px;z-index:5;left:0px;right:0px;background:
 .list-2 li{padding:0px 0 12px 17px;background:url(../images/list1-marker.png) 0 5px no-repeat;}
 .list-2 li a{
 	font-size:14px;
-	color:#5f8c64;
+	color:#EC2127;
 }
 
 time{display:block;padding:0 0 7px 0px;}
 time a{
-	color:#46824f;
+	color:#EC2127;
 	text-decoration:none;
 }
 time a:hover{color:#000;}
@@ -193,7 +220,7 @@ time a:hover{color:#000;}
 	background-color: #030;
 }
 .box-404 .blue strong{
-	color:#060;
+	color:#EC2127;
 	font-size:70px;
 	line-height:1.2em;
 	letter-spacing:-3px;
@@ -234,7 +261,7 @@ aside li a,aside .list-1 li a{color:#a9a9a9;text-decoration:none;}
 aside li a:hover{text-decoration:underline;}
 aside .ibe_inner{border:4px solid #ebebeb !important;}
 aside strong{
-	color:#46824f;
+	color:#EC2127;
 }
 /******************** Footer ******************/
 footer{color:#a4a4a4;width:950px;margin:0 auto;padding:16px 0 14px;overflow:hidden;}
@@ -258,11 +285,11 @@ blockquote.quotes.quotes2{background:url(../images/quotes2.png) 0 0 no-repeat;he
 blockquote.quotes.quotes2 div{color:#ebebeb;}
 blockquote.quotes.quotes2 a{
 	text-decoration:none;
-	color:#46824f;
+	color:#EC2127;
 }
 blockquote.quotes.quotes2 a:hover{color:#ebebeb;}
 blockquote h4{
-	color:#386039;
+	color:#EC2127;
 	padding:0 0 0 50px;
 	margin:0 0 30px;
 }
@@ -276,10 +303,10 @@ del{text-decoration:line-through;}
 abbr{cursor:help;}
 dfn{
 	letter-spacing:2px;
-	color:#46824f;
+	color:#EC2127;
 }
 var{
-	color:#46824f;
+	color:#EC2127;
 }
 sub{vertical-align:bottom}
 sub,sup{font-size:.8em;}
@@ -297,7 +324,7 @@ pre{white-space:pre}
 		.layouts-nav li a:hover{background:#aaa}
 /* Definition list style */
 dl dt{
-	color:#46824f;
+	color:#EC2127;
 	font-weight:bold;
 }
 dl dd span{display:inline-block;width:70px;}
@@ -316,7 +343,11 @@ table tbody tr td{
 /* Information box */
 .info-box,.download-box,.notification-box,.error-box{padding:20px 30px 20px 110px;margin-bottom:15px;position:relative;height:1%;font-size:13px;}
 .info-box{color:#64757f;background:#e1f2fc;border:1px solid #68a2cf}
-.download-box{color:#697a58;background:#eeffdd;border:1px solid #a3c159}
+.download-box{
+	color:#EC2127;
+	background:#eeffdd;
+	border:1px solid #a3c159
+}
 .notification-box{color:#79725b;background:#fef7e0;border:1px solid #e6c555}
 .error-box{color:#7e6c6c;background:#feebeb;border:1px solid #ff9999}
 .info-box p.icon,.download-box p.icon,.notification-box p.icon,.error-box p.icon{position:absolute;left:34px;top:16px;margin:0}
@@ -354,7 +385,7 @@ table tbody tr td{
 	#intro-box .inside{padding:40px 40px 40px 40px}
 		#intro-box h1{text-align:center;font-size:4em;margin-bottom:.2em;line-height:1.2em;position:absolute;left:0;top:-90px;width:600px;overflow:hidden;height:100px;border:none;color:#fff}
 			#intro-box h1 span{
-	color:#46824f;
+	color:#EC2127;
 	display:block;
 	margin-bottom:-15px
 }
@@ -442,4 +473,7 @@ a#aToolTipCloseBtn{display:block;height:20px;width:20px;overflow:hidden;backgrou
 .code code{padding:0 10px 0 10px;background:#f6f6f6;color:#333;border:1px solid #dfdfdf;white-space:pre;overflow:auto}
 .bg #content .container_24 .wrapper table tbody tr td table tbody tr td {
 	text-align: left;
+}
+.bg #content .container_24 .wrapper.p7 .grid_8.prefix_1 table tr td span strong span {
+	font-size: 12px;
 }
