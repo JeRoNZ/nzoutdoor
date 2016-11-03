@@ -456,7 +456,7 @@ HERE;
 </td>
 </tr>
 <tr>
-<td class="hform"><label for="notes">Message</label></td>
+<td class="hform"><label for="notes">Message</label><p>(A gift certificate will be emailed)</p></td>
 <td class="hform2"><textarea id="notes" name="notes" cols="40" rows="5">[NOTES]</textarea></td>
 </tr>
 </tbody>
