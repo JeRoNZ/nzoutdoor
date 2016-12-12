@@ -300,8 +300,7 @@ HERE;
 
 <tbody id="renewal_bit">
 <tr><td colspan="2" class="hform"><p style="font-size:10pt">
-If you are renewing an existing subscription it is important that you enter the subscriber code provided
-on your renewal notice (found on your address label above your name) in order to get the renewal price. <b>Make sure you
+If you are renewing an existing subscription please enter the subscriber code provided on your renewal notice (found on your address label above your name) which will populate your details. <b>Make sure you
 click &quot;Go&quot;</b>.
  
 <p style="font-size:10pt">If you are renewing, and can't find your subscriber ID, please call us on <b>+64 (0)7 577 9931</b>.
