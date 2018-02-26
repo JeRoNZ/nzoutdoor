@@ -303,7 +303,7 @@ HERE;
 If you are renewing an existing subscription please enter the subscriber code provided on your renewal notice (found on your address label above your name) which will populate your details. <b>Make sure you
 click &quot;Go&quot;</b>.
  
-<p style="font-size:10pt">If you are renewing, and can't find your subscriber ID, please call us on <b>+64 (0)7 577 9931</b>.
+<p style="font-size:10pt">If you are renewing, and can't find your subscriber ID, please call us on <b>+64 (0)7 562 6480</b>.
 </td></tr>
 <tr>
 <td class="hform"><label for="renewal_id">Subscriber ID..</label></td>

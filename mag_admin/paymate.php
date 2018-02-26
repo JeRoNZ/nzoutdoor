@@ -192,7 +192,7 @@ switch ($paymate_response){
         break;
     case 'PD':
         $mess.=<<<HERE
-Unfortunately your credit card was declined. Please contact us on (+64) (0)7 577 9931
+Unfortunately your credit card was declined. Please contact us on (+64) (0)7 562 6480
 to discuss alternative payment methods.
 
 HERE;

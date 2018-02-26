@@ -27,7 +27,7 @@ if (array_key_exists('search',$_POST)){
 		case "1":
 			break;
 		default:
-			echo json_encode(array('status'=>0,'message'=>"Your details were not found.\nPlease contact us on 07 577 9931"));
+			echo json_encode(array('status'=>0,'message'=>"Your details were not found.\nPlease contact us on 07 562 6480"));
 			exit();
 			break;
 	}
