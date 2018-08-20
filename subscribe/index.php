@@ -25,6 +25,8 @@ require("head.inc");
 <div id="sub_wrapper">
 <div id="subscribediv">
 <p class="heading_large">Subscribe Online</p>
+	<p>If you are renewing an existing subscription please enter the subscriber code provided on our address label above your name. Make sure you click &quot;Go&quot;.</p>
+	<p>If you are renewing, and can't find your subscriber ID, please email us on <a href="mailto:info@nzoutdoor.co.nz">info@nzoutdoor.co.nz</a>. </p>
 <?php
 $bob = new update_form();
 if (array_key_exists('rid',$_GET)){
