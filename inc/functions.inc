@@ -16,9 +16,14 @@ function send_nocache_headers()
         header("Pragma: no-cache");
 }
 
-function load_countries($id=153){
+function load_countries($id=153, $all=false){
     global $mysqli;
-    $res=$mysqli->query("select id,name from sub_countries order by sort,name");
+	$sql = 'select id,name from sub_countries';
+	if (!$all) {
+		$sql .= ' WHERE id=153';
+	}
+	$sql .= ' order by sort,name';
+    $res=$mysqli->query($sql);
     $out='<option value="0">Please select</option>';
     while($row=$res->fetch_assoc()) {
         $sel='';

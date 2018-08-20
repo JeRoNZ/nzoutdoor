@@ -242,7 +242,7 @@ HERE;
                     break;
                 case 'country':
                 case 'country2':
-                    $this->data[$key]=load_countries($value);
+                    $this->data[$key]=load_countries($value, true);
                     break;
                 case 'renewal':
                 case 'gift':
