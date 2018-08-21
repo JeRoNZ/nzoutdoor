@@ -299,12 +299,6 @@ HERE;
 </tbody>
 
 <tbody id="renewal_bit">
-<tr><td colspan="2" class="hform"><p style="font-size:10pt">
-If you are renewing an existing subscription please enter the subscriber code provided on your renewal notice (found on your address label above your name) which will populate your details. <b>Make sure you
-click &quot;Go&quot;</b>.
- 
-<p style="font-size:10pt">If you are renewing, and can't find your subscriber ID, please call us on <b>+64 (0)7 562 6480</b>.
-</td></tr>
 <tr>
 <td class="hform"><label for="renewal_id">Subscriber ID..</label></td>
 <td class="hform2"><input [RENEWAL_ID] type="text" size="10" maxlength="10" name="renewal_pw" id="renewal_pw" disabled="disabled">
