@@ -6,6 +6,7 @@ define("TESTEMAIL2",'debug@jero.co.nz');
 
 // Hide the initial $_POST values in a session for use later
 unset($_SESSION['POST']);
+$_POST['package'] = '1';
 $_SESSION['POST']=$_POST;
 
 /*
@@ -81,8 +82,9 @@ switch ($country) {
         $country=0;
 }
 
-if (!ctype_digit($_POST['package']))
-    die('Package');
+if (!ctype_digit($_POST['package'])) {
+	die('Package');
+}
 
 $amt=0;
 switch($_POST['package']){
