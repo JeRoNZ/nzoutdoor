@@ -29,7 +29,7 @@ define('AUS',13);
 
 
 // NZ New Subs
-$array[NZ][1]=49.90;
+$array[NZ][1]=58.90;
 $array[NZ][2]=95;
 $array[NZ][5]=220;
 
@@ -39,7 +39,7 @@ $array[NZ][70] = 220;    //Five years + free TV Wild DVD and 75 Year Birthday Is
 
 //NZ Renewals
 ## 22/09/15 $array[NZ][11]=44.90;
-$array[NZ][11]=49.90;
+$array[NZ][11]=58.90;
 # 22/09/15 $array[NZ][21]=89.90;
 $array[NZ][21]=95;
 # 22/09/15 $array[NZ][51]=202;
