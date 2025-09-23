@@ -57,6 +57,7 @@ if ($method == 'POST') {
     $passw=$mysqli->real_escape_string($_POST['password']);
     $sql="select * from sub_admins where email='{$email}'";
     if(($res=$mysqli->query($sql))===FALSE) {
+        die($mysqli->error);
         header("Location: ".ADMIN_URL);
         exit();
     }

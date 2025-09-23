@@ -9,7 +9,7 @@ include("head.inc");
 include("foot.inc");
 check_admin_cookie(TRUE);
 
-$admin=ADMIN_URL;
+$admin = ADMIN_URL;
 define("HTMLSTART", <<<HERE
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,309 +30,288 @@ define("HTMLEND", <<<HERE
 HERE
 );
 
-function save(){
-    global $mysqli;
-    $stamp=time();
+function save () {
+	global $mysqli;
+	$stamp = time();
 // date_subscribed set on insert only
-    $update="update sub_subscribers set email=?, title=?, forename=?, surname=?, company=?, address1=?, address2=?, city=?, country=?, region=?, pcode=?, phone=?, mobile=?, notes=?, years=?, first_issue=?, last_issue=?, method=?, free=?, admin_notes=?, gift=?, email2=?, name2=?, address12=?, address22=?, city2=?, country2=?, region2=?, pcode2=?, phone2=?, mobile2=?, paymate_response=?, DVD=? where id=?";
-    $insert="insert into sub_subscribers (date_subscribed,email,title,forename,surname,company,address1,address2,city,country,region,pcode,phone,mobile,notes,years,first_issue,last_issue,method,free,admin_notes,gift,email2,name2,address12,address22,city2,country2,region2,pcode2,phone2,mobile2,DVD) values ({$stamp},?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $gift='N';
-    $free='N';
-    $renewal='N';
-    foreach($_POST as &$value){
-        $value=trim($value);
-    }
-    if ($_POST['country'] == 153)
-        $region=$_POST['region'];
-    else
-        $region=$_POST['regiono'];
-
-    if ($_POST['country2'] == 153)
-        $region2=$_POST['region2'];
-    else
-        $region2=$_POST['regiono2'];
-
-    if ($region=='Please select')
-        $region='';
-    if ($region2=='Please select')
-        $region2='';
-
-    if (array_key_exists('gift',$_POST))
-        $gift='Y';
-    if (array_key_exists('free',$_POST))
-        $free='Y';
-    if (array_key_exists('renewal',$_POST))
-        $renewal=$_POST['renewal'];
-
-    $add=TRUE;
-    if (array_key_exists('id',$_POST)){
-	switch($_POST['package']){
-		case 6:
-			$dvd='Y';
-			$package=2;
-			break;
-		case 7:
-			$dvd='Y';
-			$package=5;
-			break;
-		default:
-			$dvd='N';
-			$package=$_POST['package'];
-			break;
+	$update = "update sub_subscribers set email=?, title=?, forename=?, surname=?, company=?, address1=?, address2=?, city=?, country=?, region=?, pcode=?, phone=?, mobile=?, notes=?, years=?, first_issue=?, last_issue=?, method=?, free=?, admin_notes=?, gift=?, email2=?, name2=?, address12=?, address22=?, city2=?, country2=?, region2=?, pcode2=?, phone2=?, mobile2=?, paymate_response=?, DVD=? where id=?";
+	$insert = "insert into sub_subscribers (paymate_txid,date_subscribed,email,title,forename,surname,company,address1,address2,city,country,region,pcode,phone,mobile,notes,years,first_issue,last_issue,method,free,admin_notes,gift,email2,name2,address12,address22,city2,country2,region2,pcode2,phone2,mobile2,DVD) values (?,{$stamp},?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	$gift = 'N';
+	$free = 'N';
+	$renewal = 'N';
+	foreach ($_POST as &$value) {
+		$value = trim($value);
 	}
-        if ($_POST['id'] !=''){
-            if (ctype_digit($_POST['id']))
-                $rid=$_POST['id'];
-            $add=FALSE;
-            $stmt=$mysqli->prepare($update);
-            $stmt->bind_param("ssssssssdsssssdddsssssssssdssssssd", $_POST["email"], $_POST["title"], $_POST["forename"], $_POST["surname"], $_POST["company"], $_POST["address1"], $_POST["address2"], $_POST["city"], $_POST["country"], $region, $_POST["pcode"], $_POST["phone"], $_POST["mobile"], $_POST["notes"], $package, $_POST["issue"], $_POST["last_issue"], $_POST["method"], $free, $_POST["admin_notes"], $gift, $_POST["email2"], $_POST["name2"], $_POST["address12"], $_POST["address22"], $_POST["city2"], $_POST["country2"], $region2, $_POST["pcode2"], $_POST["phone2"], $_POST["mobile2"],$_POST["paymate_response"],$dvd,$_POST['id']);
-        }
-        else{
-            $stmt=$mysqli->prepare($insert);
-echo $mysqli->error;
-            $stmt->bind_param("ssssssssdssssssddsssssssssdsssss", $_POST["email"], $_POST["title"], $_POST["forename"], $_POST["surname"], $_POST["company"], $_POST["address1"], $_POST["address2"], $_POST["city"], $_POST["country"], $region, $_POST["pcode"], $_POST["phone"], $_POST["mobile"], $_POST["notes"], $package, $_POST["issue"], $_POST["last_issue"], $_POST["method"], $free, $_POST["admin_notes"], $gift, $_POST["email2"], $_POST["name2"], $_POST["address12"], $_POST["address22"], $_POST["city2"], $_POST["country2"], $region2, $_POST["pcode2"], $_POST["phone2"], $_POST["mobile2"],$dvd);
-        }
-    }
-    $stmt->execute();
+	if ($_POST['country'] == 153) $region = $_POST['region']; else
+		$region = $_POST['regiono'];
 
-    if ($add){
+	if ($_POST['country2'] == 153) $region2 = $_POST['region2']; else
+		$region2 = $_POST['regiono2'];
+
+	if ($region == 'Please select') $region = '';
+	if ($region2 == 'Please select') $region2 = '';
+
+	if (array_key_exists('gift', $_POST)) $gift = 'Y';
+	if (array_key_exists('free', $_POST)) $free = 'Y';
+	if (array_key_exists('renewal', $_POST)) $renewal = $_POST['renewal'];
+
+	$add = TRUE;
+	if (array_key_exists('id', $_POST)) {
+        $package = 0;
+		if (isset($_POST['package'])) {
+			switch ($_POST['package']) {
+				case 6:
+					$dvd = 'Y';
+					$package = 2;
+					break;
+				case 7:
+					$dvd = 'Y';
+					$package = 5;
+					break;
+				default:
+					$dvd = 'N';
+					$package = $_POST['package'];
+					break;
+			}
+		}
+		if ($_POST['id'] != '') {
+			if (ctype_digit($_POST['id'])) $rid = $_POST['id'];
+			$add = FALSE;
+			$stmt = $mysqli->prepare($update);
+			$stmt->bind_param("ssssssssdsssssdddsssssssssdssssssd", $_POST["email"], $_POST["title"], $_POST["forename"], $_POST["surname"], $_POST["company"], $_POST["address1"], $_POST["address2"], $_POST["city"], $_POST["country"], $region, $_POST["pcode"], $_POST["phone"], $_POST["mobile"], $_POST["notes"], $package, $_POST["issue"], $_POST["last_issue"], $_POST["method"], $free, $_POST["admin_notes"], $gift, $_POST["email2"], $_POST["name2"], $_POST["address12"], $_POST["address22"], $_POST["city2"], $_POST["country2"], $region2, $_POST["pcode2"], $_POST["phone2"], $_POST["mobile2"], $_POST["paymate_response"], $dvd, $_POST['id']);
+		} else {
+			$stmt = $mysqli->prepare($insert);
+			$pm = 0;
+			if (!$stmt) {
+				die('Error ' . $mysqli->error);
+			}
+			$stmt->bind_param("dssssssssdssssssddsssssssssdsssss", $pm, $_POST["email"], $_POST["title"], $_POST["forename"], $_POST["surname"], $_POST["company"], $_POST["address1"], $_POST["address2"], $_POST["city"], $_POST["country"], $region, $_POST["pcode"], $_POST["phone"], $_POST["mobile"], $_POST["notes"], $package, $_POST["issue"], $_POST["last_issue"], $_POST["method"], $free, $_POST["admin_notes"], $gift, $_POST["email2"], $_POST["name2"], $_POST["address12"], $_POST["address22"], $_POST["city2"], $_POST["country2"], $region2, $_POST["pcode2"], $_POST["phone2"], $_POST["mobile2"], $dvd);
+		}
+	}
+	$stmt->execute();
+    if ($stmt->errno) {
+        die($stmt->error);
+    }
+
+	if ($add) {
 // Set the renewal ID code for new entries
-            $rid=$stmt->insert_id;
-        $stmt->close();
-            $renewal_id=make_code($rid);
-            $mysqli->query("Update sub_subscribers set renewal_id='{$renewal_id}' where id=$rid");
-    }
-    if ($add or ($renewal=='Y')){
-// Add an audit transaction
-        $sql="insert into sub_renewals (id,first_issue,last_issue,years,method,date) values(?,?,?,?,?,now())";
-        $stmt=$mysqli->prepare($sql);
-        $stmt->bind_param("dddds",$rid,$_POST["issue"],$_POST["last_issue"],$_POST["package"],$_POST["method"]);
-        $stmt->execute();
-        $stmt->close();
-// set the date renewed
-	$sql="update sub_subscribers set date_renewed={$stamp} where id={$rid}";
-	$mysqli->query($sql);
-    }
-}
-
-function do_form(){
-    global $mysqli;
-    $bob = new update_form(TRUE);
-    $row=NULL;
-    if (array_key_exists('id',$_POST)) {
-        $id=$_POST['id'];
-        $sql="select * from sub_subscribers where id=".$mysqli->real_escape_string($id);
-        $row=$mysqli->query($sql)->fetch_assoc();
-
-        $bob->xact=get_renewals($id);
-    }
-    if ($row['DVD']=='Y'){
-	switch($row['years']){
-		case 2:
-			$row['years']=6;
-			break;
-		case 5:
-			$row['years']=7;
-			break;
+		$rid = $stmt->insert_id;
+		$stmt->close();
+		$renewal_id = make_code($rid);
+		$mysqli->query("Update sub_subscribers set renewal_id='{$renewal_id}' where id=$rid");
 	}
-    }
-    $bob->set($row);
-    return $bob->merge();
+	if ($add or ($renewal == 'Y')) {
+// Add an audit transaction
+		$sql = "insert into sub_renewals (id,first_issue,last_issue,years,method,date) values(?,?,?,?,?,now())";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param("dddds", $rid, $_POST["issue"], $_POST["last_issue"], $_POST["package"], $_POST["method"]);
+		$stmt->execute();
+		$stmt->close();
+// set the date renewed
+		$sql = "update sub_subscribers set date_renewed={$stamp} where id={$rid}";
+		$mysqli->query($sql);
+	}
 }
 
-function get_renewals($id){
-    global $mysqli;
-    $sql="select * from sub_renewals where id=".$mysqli->real_escape_string($id)." order by seq";
-    $res=$mysqli->query($sql);
-    if ($res->num_rows==0)
-        return '';
-    $xact='<table id="Renewaldata" border=0 cellpadding=1 cellspacing=1>';
-    $xact.='<tr><th>First</th><th>Last</th><th>Years</th><th>Method</th><th>Date</th></tr>';
-    while ($row=$res->fetch_assoc()){
-        $xact.=add_row($row);
-    }
-    $xact.='</table>';
-    return $xact;
+function do_form () {
+	global $mysqli;
+	$bob = new update_form(TRUE);
+	$row = NULL;
+	if (array_key_exists('id', $_POST)) {
+		$id = $_POST['id'];
+		$sql = "select * from sub_subscribers where id=" . $mysqli->real_escape_string($id);
+		$row = $mysqli->query($sql)->fetch_assoc();
+
+		$bob->xact = get_renewals($id);
+	}
+	if ($row['DVD'] == 'Y') {
+		switch ($row['years']) {
+			case 2:
+				$row['years'] = 6;
+				break;
+			case 5:
+				$row['years'] = 7;
+				break;
+		}
+	}
+	$bob->set($row);
+
+	return $bob->merge();
 }
 
-function add_row($row){
-    $template="<tr><td>[FIRST]</td><td>[LAST]</td><td>[YEARS]</td><td>[METHOD]</td><td>[DATE]</td></tr>";
-    $ret=str_replace('[FIRST]',$row['first_issue'],$template);
-    $ret=str_replace('[LAST]',$row['last_issue'],$ret);
-    $ret=str_replace('[YEARS]',$row['years'],$ret);
-    $ret=str_replace('[METHOD]',$row['method'],$ret);
-    $ret=str_replace('[DATE]',$row['date'],$ret);
+function get_renewals ($id) {
+	global $mysqli;
+	$sql = "select * from sub_renewals where id=" . $mysqli->real_escape_string($id) . " order by seq";
+	$res = $mysqli->query($sql);
+	if ($res->num_rows == 0) return '';
+	$xact = '<table id="Renewaldata" border=0 cellpadding=1 cellspacing=1>';
+	$xact .= '<tr><th>First</th><th>Last</th><th>Years</th><th>Method</th><th>Date</th></tr>';
+	while ($row = $res->fetch_assoc()) {
+		$xact .= add_row($row);
+	}
+	$xact .= '</table>';
 
-    return $ret;
+	return $xact;
 }
 
+function add_row ($row) {
+	$template = "<tr><td>[FIRST]</td><td>[LAST]</td><td>[YEARS]</td><td>[METHOD]</td><td>[DATE]</td></tr>";
+	$ret = str_replace('[FIRST]', $row['first_issue'], $template);
+	$ret = str_replace('[LAST]', $row['last_issue'], $ret);
+	$ret = str_replace('[YEARS]', $row['years'], $ret);
+	$ret = str_replace('[METHOD]', $row['method'], $ret);
+	$ret = str_replace('[DATE]', $row['date'], $ret);
 
-function delete() {
-    global $mysqli;
-    $id=$mysqli->real_escape_string($_POST['id']);
-    $sql="delete from sub_subscribers where id={$id}";
-    $mysqli->query($sql);
-    $sql="delete from sub_renewals where id={$id}";
-    $mysqli->query($sql);
-}
-
-function table_header($Sort,$Dir){
-    $out='<tr>';
-    $cols=array('ID','Code','Gift','Title','Forename','Surname','Company','City','Region','Country','Email','Phone','First Issue','Last Issue','Years','Comp','DVD','Date','Functions');
-    $sort=array('id','renewal_id','name2','title','forename','surname','company','city','region','country','email','phone','first_issue','last_issue','years','free','DVD','date_renewed','');
-    if ($Dir=='asc')
-        $rDir='desc';
-    else
-        $rDir='asc';
-    for ($i=0;$i<count($cols);$i++){
-        $out.='<th>';
-        if ($Sort==$sort[$i])
-            $out.='<img class=arrow id=dir_'.$rDir.' src="/images/[IMG]">';
-        $class='class=sortby';
-        if ($sort[$i]=='')
-            $class='';
-        $out.='<span '.$class.' id=sortby_'.$sort[$i].'>'.$cols[$i].'</span></th>';
-    }
-    $img='arrow_down_black.png';
-    if ($Dir=='asc')
-        $img='arrow_up_black.png';
-    return str_replace('[IMG]',$img,$out).'</tr>';
-}
-
-function do_pages($total){
-        $Limit=30;
-        if (array_key_exists('Limit',$_SESSION))
-                $Limit=$_SESSION['Limit'];
-
-        $page=1;
-        if (array_key_exists('Page',$_SESSION))
-                $page=$_SESSION['Page'];
-        if (array_key_exists('page',$_POST)){
-                if (ctype_digit($_POST['page']))
-                        $page=$_POST['page'];
-        }
-
-        if (array_key_exists('last',$_POST))
-                $page--;
-        if (array_key_exists('next',$_POST))
-                $page++;
-
-        $pages=ceil($total/$Limit);
-        if ($page>$pages)
-                $page=$pages;
-        if ($page<=0)
-                $page=1;
-
-        $_SESSION['Page']=$page;
-
-        $out='';
-        for ($i=1;$i<=$pages;$i++){
-                $sel='';
-                if ($i == $page)
-                        $sel=' selected="selected"';
-                $out.='<option value="'.$i.'"'.$sel.'>Page '.$i.'</option>';
-        }
-        $dis1='';
-        $dis2='';
-        if ($page==1)
-                $dis1='disabled="disabled"';
-        if ($page==$pages)
-                $dis2='disabled="disabled"';
-        $template='<button [DIS1] name="last">&laquo;</button><select id="page" name="page">[PAGES]</select><button [DIS2] name="next">&raquo;</button>';
-        $ret=str_replace('[DIS1]',$dis1, $template);
-        $ret=str_replace('[DIS2]',$dis2, $ret);
-        $ret=str_replace('[PAGES]',$out, $ret);
-        return $ret;
+	return $ret;
 }
 
 
+function delete () {
+	global $mysqli;
+	$id = $mysqli->real_escape_string($_POST['id']);
+	$sql = "delete from sub_subscribers where id={$id}";
+	$mysqli->query($sql);
+	$sql = "delete from sub_renewals where id={$id}";
+	$mysqli->query($sql);
+}
 
-function do_scan() {
-    global $mysqli;
-    $Limit=30;
-    $UnescapedSearch='';
-    if (array_key_exists('Limit',$_SESSION))
-        $Limit=$_SESSION['Limit'];
-    if (array_key_exists('Limit',$_POST)) {
-        if (ctype_digit($_POST['Limit'])) {
-            if ($_POST['Limit'] <= 0) {
-                $Limit=30;
-            }
-            else {
-                $Limit=$_POST['Limit'];
-            }
-            $_SESSION['Limit']=$Limit;
-        }
-    }
-    if (array_key_exists('UnescapedSearch',$_SESSION))
-        $UnescapedSearch=$_SESSION['UnescapedSearch'];
-    if (array_key_exists('Search',$_POST)) {
-        if ($_POST['Search']==''){
-            $UnescapedSearch='';
-            unset($_SESSION['UnescapedSearch']);
-        }
-        else {
-            $UnescapedSearch=$_POST['Search'];
-            $_SESSION['UnescapedSearch']=$UnescapedSearch;
-        }
-    }
+function table_header ($Sort, $Dir) {
+	$out = '<tr>';
+	$cols = array('ID', 'Code', 'Gift', 'Title', 'Forename', 'Surname', 'Company', 'City', 'Region', 'Country', 'Email', 'Phone', 'First Issue', 'Last Issue', 'Years', 'Comp', 'DVD', 'Date', 'Functions');
+	$sort = array('id', 'renewal_id', 'name2', 'title', 'forename', 'surname', 'company', 'city', 'region', 'country', 'email', 'phone', 'first_issue', 'last_issue', 'years', 'free', 'DVD', 'date_renewed', '');
+	if ($Dir == 'asc') $rDir = 'desc'; else
+		$rDir = 'asc';
+	for ($i = 0; $i < count($cols); $i++) {
+		$out .= '<th>';
+		if ($Sort == $sort[$i]) $out .= '<img class=arrow id=dir_' . $rDir . ' src="/images/[IMG]">';
+		$class = 'class=sortby';
+		if ($sort[$i] == '') $class = '';
+		$out .= '<span ' . $class . ' id=sortby_' . $sort[$i] . '>' . $cols[$i] . '</span></th>';
+	}
+	$img = 'arrow_down_black.png';
+	if ($Dir == 'asc') $img = 'arrow_up_black.png';
 
-    $Sort='email';
-    if (array_key_exists('Sort',$_SESSION))
-        $Sort=$_SESSION['Sort'];
-    if (array_key_exists('Sort',$_POST)) {
-        switch($_POST['Sort']){
-            case 'name2':
-            case 'title':
-            case 'DVD':
-            case 'email':
-            case 'phone':
-            case 'free':
-            case 'date_renewed':
-            case 'company':
-            case 'surname':
-            case 'city':
-            case 'region':
-            case 'country':
-            case 'years':
-            case 'renewal_id':
-            case 'id':
-            case 'forename':
-            case 'first_issue':
-            case 'last_issue':
-                $Sort=$_POST['Sort'];
-                $_SESSION['Sort']=$Sort;
-                break;
-            default:
-                $Sort='';
-                unset($_SESSION['Sort']);
-        }
-    }
+	return str_replace('[IMG]', $img, $out) . '</tr>';
+}
 
-    $Dir='asc';
-    if (array_key_exists('Dir',$_SESSION))
-        $Dir=$_SESSION['Dir'];
-    if (array_key_exists('Dir',$_POST)) {
-        switch($_POST['Dir']){
-            case 'asc':
-            case 'desc':
-                $Dir=$_POST['Dir'];
-                $_SESSION['Dir']=$Dir;
-                break;
-            default:
-                $Dir='asc';
-                unset($_SESSION['Dir']);
-        }
-    }
+function do_pages ($total) {
+	$Limit = 30;
+	if (array_key_exists('Limit', $_SESSION)) $Limit = $_SESSION['Limit'];
 
-    $template=<<<HERE
+	$page = 1;
+	if (array_key_exists('Page', $_SESSION)) $page = $_SESSION['Page'];
+	if (array_key_exists('page', $_POST)) {
+		if (ctype_digit($_POST['page'])) $page = $_POST['page'];
+	}
+
+	if (array_key_exists('last', $_POST)) $page--;
+	if (array_key_exists('next', $_POST)) $page++;
+
+	$pages = ceil($total / $Limit);
+	if ($page > $pages) $page = $pages;
+	if ($page <= 0) $page = 1;
+
+	$_SESSION['Page'] = $page;
+
+	$out = '';
+	for ($i = 1; $i <= $pages; $i++) {
+		$sel = '';
+		if ($i == $page) $sel = ' selected="selected"';
+		$out .= '<option value="' . $i . '"' . $sel . '>Page ' . $i . '</option>';
+	}
+	$dis1 = '';
+	$dis2 = '';
+	if ($page == 1) $dis1 = 'disabled="disabled"';
+	if ($page == $pages) $dis2 = 'disabled="disabled"';
+	$template = '<button [DIS1] name="last">&laquo;</button><select id="page" name="page">[PAGES]</select><button [DIS2] name="next">&raquo;</button>';
+	$ret = str_replace('[DIS1]', $dis1, $template);
+	$ret = str_replace('[DIS2]', $dis2, $ret);
+	$ret = str_replace('[PAGES]', $out, $ret);
+
+	return $ret;
+}
+
+
+function do_scan () {
+	global $mysqli;
+	$Limit = 30;
+	$UnescapedSearch = '';
+	if (array_key_exists('Limit', $_SESSION)) $Limit = $_SESSION['Limit'];
+	if (array_key_exists('Limit', $_POST)) {
+		if (ctype_digit($_POST['Limit'])) {
+			if ($_POST['Limit'] <= 0) {
+				$Limit = 30;
+			} else {
+				$Limit = $_POST['Limit'];
+			}
+			$_SESSION['Limit'] = $Limit;
+		}
+	}
+	if (array_key_exists('UnescapedSearch', $_SESSION)) $UnescapedSearch = $_SESSION['UnescapedSearch'];
+	if (array_key_exists('Search', $_POST)) {
+		if ($_POST['Search'] == '') {
+			$UnescapedSearch = '';
+			unset($_SESSION['UnescapedSearch']);
+		} else {
+			$UnescapedSearch = $_POST['Search'];
+			$_SESSION['UnescapedSearch'] = $UnescapedSearch;
+		}
+	}
+
+	$Sort = 'email';
+	if (array_key_exists('Sort', $_SESSION)) $Sort = $_SESSION['Sort'];
+	if (array_key_exists('Sort', $_POST)) {
+		switch ($_POST['Sort']) {
+			case 'name2':
+			case 'title':
+			case 'DVD':
+			case 'email':
+			case 'phone':
+			case 'free':
+			case 'date_renewed':
+			case 'company':
+			case 'surname':
+			case 'city':
+			case 'region':
+			case 'country':
+			case 'years':
+			case 'renewal_id':
+			case 'id':
+			case 'forename':
+			case 'first_issue':
+			case 'last_issue':
+				$Sort = $_POST['Sort'];
+				$_SESSION['Sort'] = $Sort;
+				break;
+			default:
+				$Sort = '';
+				unset($_SESSION['Sort']);
+		}
+	}
+
+	$Dir = 'asc';
+	if (array_key_exists('Dir', $_SESSION)) $Dir = $_SESSION['Dir'];
+	if (array_key_exists('Dir', $_POST)) {
+		switch ($_POST['Dir']) {
+			case 'asc':
+			case 'desc':
+				$Dir = $_POST['Dir'];
+				$_SESSION['Dir'] = $Dir;
+				break;
+			default:
+				$Dir = 'asc';
+				unset($_SESSION['Dir']);
+		}
+	}
+
+	$template = <<<HERE
 <form method=post id=Scanform action={$_SERVER['PHP_SELF']}>
 Records: <input name=Limit type=text size=2 maxwidth=2 title="Set number of records per page" value={$Limit}>
 [PAGES]
 Search: <input id="Search" name=Search type=text size=20 maxwidth=20 value="
 HERE;
-    $template.=htmlspecialchars($UnescapedSearch);
-    $template.=<<<HERE
+	$template .= htmlspecialchars($UnescapedSearch);
+	$template .= <<<HERE
 " title="Enter email, phone, surname or renewal ID">
 <input type="submit" name="action" value="Search" title="Run search">
 <input type="submit" id="Clear" value="Clear" title="Clear search parameters">
@@ -341,7 +320,7 @@ HERE;
 </form>
 <table class="maintscan">[CONTENT]</table>
 HERE;
-    $tab=<<<HERE
+	$tab = <<<HERE
 <tr class=[CLASS]>
 <td>[ID]</td>
 <td>[CODE]</td>
@@ -370,114 +349,110 @@ HERE;
 <button name=action value=Delete class=Delete title="Delete Subscriber"><img src="/images/Delete.png"></button>
 </form></td></tr>
 HERE;
-    $sql="select * from sub_subscribers";
+	$sql = "select * from sub_subscribers";
 
-    $sqlbody='';
-    if ($UnescapedSearch!=''){
-	$sstring=$mysqli->real_escape_string(trim($UnescapedSearch));
-	if ($sstring=='PP'){
-		$sqlbody=" where paymate_response='PP' and method='P' ";
-	} elseif (strpos($sstring,'@')!==FALSE){
-		$sqlbody=" where email like '%{$sstring}%' or email2 like '%{$sstring}%' ";
-        }elseif (preg_match("@^[A-Z]{2}[0-9]{4,8}$@",$sstring)==1){
-		$sqlbody=" where renewal_id='{$sstring}' ";
-        }elseif (preg_match("@^[A-Z]+$@i",$sstring)){
-		$sqlbody=" where surname like '%{$sstring}%' or name2 like '%{$sstring}%' or company like '%{$sstring}%' ";
-        }else{
-		$sqlbody=" where phone like '%{$sstring}%' or phone2 like '%{$sstring}%' ";
-        }
-        $sql.= $sqlbody;
-    }
+	$sqlbody = '';
+	if ($UnescapedSearch != '') {
+		$sstring = $mysqli->real_escape_string(trim($UnescapedSearch));
+		if ($sstring == 'PP') {
+			$sqlbody = " where paymate_response='PP' and method='P' ";
+		} elseif (strpos($sstring, '@') !== FALSE) {
+			$sqlbody = " where email like '%{$sstring}%' or email2 like '%{$sstring}%' ";
+		} elseif (preg_match("@^[A-Z]{2}[0-9]{4,8}$@", $sstring) == 1) {
+			$sqlbody = " where renewal_id='{$sstring}' ";
+		} elseif (preg_match("@^[A-Z]+$@i", $sstring)) {
+			$sqlbody = " where surname like '%{$sstring}%' or name2 like '%{$sstring}%' or company like '%{$sstring}%' ";
+		} else {
+			$sqlbody = " where phone like '%{$sstring}%' or phone2 like '%{$sstring}%' ";
+		}
+		$sql .= $sqlbody;
+	}
 
-    if ($Sort!='')
-        $sql.=' order by '.$Sort.' '.$Dir;
+	if ($Sort != '') $sql .= ' order by ' . $Sort . ' ' . $Dir;
 
-    $row=$mysqli->query("select count(*) as qty from sub_subscribers".$sqlbody)->fetch_assoc();
-    $records=$row['qty'];
-    $pages=do_pages($records); // this sets up $_SESSION['Page']
+	$row = $mysqli->query("select count(*) as qty from sub_subscribers" . $sqlbody)->fetch_assoc();
+	$records = $row['qty'];
+	$pages = do_pages($records); // this sets up $_SESSION['Page']
 
-    $Start=0;
-    if (array_key_exists('Page',$_SESSION)){
-        $Start=($_SESSION['Page']-1) * $Limit;
-        if ($Start >= $records)
-            $Start=0;
-    }
+	$Start = 0;
+	if (array_key_exists('Page', $_SESSION)) {
+		$Start = ($_SESSION['Page'] - 1) * $Limit;
+		if ($Start >= $records) $Start = 0;
+	}
 
-    $sql.=" Limit {$Start}, {$Limit}";
-    if (! $res=$mysqli->query($sql)) {
-	echo $sql."_".$mysqli->error;
-        unset($_SESSION['UnescapedSearch']);
-        unset($_SESSION['Page']);
-        echo 'No subscribers found! <a href="'.$_SERVER['PHP_SELF'].'">Back</a>';
-    }
-    $out=table_header($Sort,$Dir);
-    $oe=0;
-    while($row=$res->fetch_assoc()) {
-        $class= (++$oe % 2 ==0) ? 'even' : 'odd';
-        $line=str_replace("[ID]",$row['id'],$tab);
-        $line=str_replace("[CLASS]",$class,$line);
-        $line=str_replace("[CODE]",htmlspecialchars($row['renewal_id']),$line);
-        $line=str_replace("[GIFT]",htmlspecialchars($row['name2']),$line);
-        $line=str_replace("[EMAIL]",htmlspecialchars($row['email']),$line);
-        $line=str_replace("[TITLE]",htmlspecialchars($row['title']),$line);
-        $line=str_replace("[TITLE]",htmlspecialchars($row['title']),$line);
-        $line=str_replace("[PHONE]",htmlspecialchars($row['phone']),$line);
-        $line=str_replace("[FORENAME]",htmlspecialchars($row['forename']),$line);
-        $line=str_replace("[SURNAME]",htmlspecialchars($row['surname']),$line);
-        $line=str_replace("[COMPANY]",htmlspecialchars($row['company']),$line);
-        $line=str_replace("[COUNTRY]",$row['country'],$line);
-        $first=substr($row['first_issue'],4,2).'/'.substr($row['first_issue'],0,4);
-        $last=substr($row['last_issue'],4,2).'/'.substr($row['last_issue'],0,4);
-        $line=str_replace("[FIRST]",$first,$line);
-        $line=str_replace("[LAST]",$last,$line);
-        $line=str_replace("[YEARS]",$row['years'],$line);
-        $line=str_replace("[FREE]",$row['free'],$line);
-        $line=str_replace("[DVD]",$row['DVD'],$line);
-	if ($row['date_renewed']==0)
-		$date='';
-	else
-		$date=date('d/m/y',$row['date_renewed']);
-        $line=str_replace("[DATE]",$date,$line);
-        $line=str_replace("[CITY]",htmlspecialchars($row['city']),$line);
-        $line=str_replace("[REGION]",htmlspecialchars($row['region']),$line);
-        $out.=$line;
-    }
-    $records=$mysqli->query("select count(*) as qty from sub_subscribers".$sqlbody)->fetch_assoc();
+	$sql .= " Limit {$Start}, {$Limit}";
+	if (!$res = $mysqli->query($sql)) {
+		echo $sql . "_" . $mysqli->error;
+		unset($_SESSION['UnescapedSearch']);
+		unset($_SESSION['Page']);
+		echo 'No subscribers found! <a href="' . $_SERVER['PHP_SELF'] . '">Back</a>';
+	}
+	$out = table_header($Sort, $Dir);
+	$oe = 0;
+	while ($row = $res->fetch_assoc()) {
+		$class = (++$oe % 2 == 0) ? 'even' : 'odd';
+		$line = str_replace("[ID]", $row['id'], $tab);
+		$line = str_replace("[CLASS]", $class, $line);
+		$line = str_replace("[CODE]", htmlspecialchars($row['renewal_id']), $line);
+		$line = str_replace("[GIFT]", htmlspecialchars($row['name2']), $line);
+		$line = str_replace("[EMAIL]", htmlspecialchars($row['email']), $line);
+		$line = str_replace("[TITLE]", htmlspecialchars($row['title']), $line);
+		$line = str_replace("[TITLE]", htmlspecialchars($row['title']), $line);
+		$line = str_replace("[PHONE]", htmlspecialchars($row['phone']), $line);
+		$line = str_replace("[FORENAME]", htmlspecialchars($row['forename']), $line);
+		$line = str_replace("[SURNAME]", htmlspecialchars($row['surname']), $line);
+		$line = str_replace("[COMPANY]", htmlspecialchars($row['company']), $line);
+		$line = str_replace("[COUNTRY]", $row['country'], $line);
+		$first = substr($row['first_issue'], 4, 2) . '/' . substr($row['first_issue'], 0, 4);
+		$last = substr($row['last_issue'], 4, 2) . '/' . substr($row['last_issue'], 0, 4);
+		$line = str_replace("[FIRST]", $first, $line);
+		$line = str_replace("[LAST]", $last, $line);
+		$line = str_replace("[YEARS]", $row['years'], $line);
+		$line = str_replace("[FREE]", $row['free'], $line);
+		$line = str_replace("[DVD]", $row['DVD'], $line);
+		if ($row['date_renewed'] == 0) $date = ''; else
+			$date = date('d/m/y', $row['date_renewed']);
+		$line = str_replace("[DATE]", $date, $line);
+		$line = str_replace("[CITY]", htmlspecialchars($row['city']), $line);
+		$line = str_replace("[REGION]", htmlspecialchars($row['region']), $line);
+		$out .= $line;
+	}
+	$records = $mysqli->query("select count(*) as qty from sub_subscribers" . $sqlbody)->fetch_assoc();
 
-    $template=str_replace("[PAGES]",$pages,$template);
+	$template = str_replace("[PAGES]", $pages, $template);
 
-    return str_replace("[CONTENT]",$out,$template);
+	return str_replace("[CONTENT]", $out, $template);
 }
 
 
-$method=$_SERVER['REQUEST_METHOD'];
+$method = $_SERVER['REQUEST_METHOD'];
 
 if ($method == "POST") {
-    if (array_key_exists('edit',$_POST)) {
-        if (array_key_exists('id',$_POST)) {
-            echo HTMLSTART.page_header().'<h1>Subscriber Maintenance - ID: '.$_POST['id'].'</h1>'.do_form().page_footer().HTMLEND;
-            exit();
-        }
-    }
-    if (array_key_exists('action',$_POST)) {
-        switch($_POST['action']) {
-            case "Quit":
-                header("Location: ".ADMIN_URL);
-                exit();
-            case "Save":
-                save();
-                break;
-            case "New":
-                echo HTMLSTART.page_header().'<h1>Subscriber Maintenance</h1>'.do_form().page_footer().HTMLEND;
-                exit();
-                break;
-            case "Delete":
-                delete();
-                break;
-        }
-    }
+	if (array_key_exists('edit', $_POST)) {
+		if (array_key_exists('id', $_POST)) {
+			echo HTMLSTART . page_header() . '<h1>Subscriber Maintenance - ID: ' . $_POST['id'] . '</h1>' . do_form() . page_footer() . HTMLEND;
+			exit();
+		}
+	}
+	if (array_key_exists('action', $_POST)) {
+		switch ($_POST['action']) {
+			case "Quit":
+				header("Location: " . ADMIN_URL);
+				exit();
+			case "Save":
+				save();
+				break;
+			case "New":
+				echo HTMLSTART . page_header() . '<h1>Subscriber Maintenance</h1>' . do_form() . page_footer() . HTMLEND;
+				exit();
+				break;
+			case "Delete":
+				delete();
+				break;
+		}
+	}
 }
-echo HTMLSTART.page_header().'<h1>Subscriber Maintenance</h1>'.do_scan().page_footer().HTMLEND;
+echo HTMLSTART . page_header() . '<h1>Subscriber Maintenance</h1>' . do_scan() . page_footer() . HTMLEND;
 ?>
 </body>
 </html>

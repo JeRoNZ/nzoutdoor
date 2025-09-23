@@ -98,39 +98,39 @@ class update_form {
 			$data['country2'] = load_countries();
 		}
 		$template = $this->template;
-		$template = str_replace("[RENEWAL_ID]", $data['renewal_id'], $template);
-		$template = str_replace("[ID]", $data['id'], $template);
-		$template = str_replace("[EMAIL]", $data['email'], $template);
-		$template = str_replace("[COMPANY]", $data['company'], $template);
-		$template = str_replace("[FORENAME]", $data['forename'], $template);
-		$template = str_replace("[SURNAME]", $data['surname'], $template);
-		$template = str_replace("[ADDRESS1]", $data['address1'], $template);
-		$template = str_replace("[ADDRESS2]", $data['address2'], $template);
-		$template = str_replace("[CITY]", $data['city'], $template);
-		$template = str_replace("[COUNTRY]", $data['country'], $template);
-		$template = str_replace("[REGION]", $data['region'], $template);
-		$template = str_replace("[REGIONO]", $data['regiono'], $template);
-		$template = str_replace("[TITLE]", $data['title'], $template);
-		$template = str_replace("[PCODE]", $data['pcode'], $template);
-		$template = str_replace("[PHONE]", $data['phone'], $template);
-		$template = str_replace("[MOBILE]", $data['mobile'], $template);
-		$template = str_replace("[NOTES]", $data['notes'], $template);
-		$template = str_replace("[RENEWAL]", $data['renewal'], $template);
-		$template = str_replace("[YEARS]", $data['years'], $template);
-		$template = str_replace("[RENEW_BTN]", $data['renew_btn'], $template);
+		$template = str_replace("[RENEWAL_ID]", $data['renewal_id'] ??0, $template);
+		$template = str_replace("[ID]", $data['id']??0, $template);
+		$template = str_replace("[EMAIL]", $data['email']??'', $template);
+		$template = str_replace("[COMPANY]", $data['company']??'', $template);
+		$template = str_replace("[FORENAME]", $data['forename']??'', $template);
+		$template = str_replace("[SURNAME]", $data['surname']??'', $template);
+		$template = str_replace("[ADDRESS1]", $data['address1']??'', $template);
+		$template = str_replace("[ADDRESS2]", $data['address2']??'', $template);
+		$template = str_replace("[CITY]", $data['city']??'', $template);
+		$template = str_replace("[COUNTRY]", $data['country']??'', $template);
+		$template = str_replace("[REGION]", $data['region']??'', $template);
+		$template = str_replace("[REGIONO]", $data['regiono']??'', $template);
+		$template = str_replace("[TITLE]", $data['title']??'', $template);
+		$template = str_replace("[PCODE]", $data['pcode']??'', $template);
+		$template = str_replace("[PHONE]", $data['phone']??'', $template);
+		$template = str_replace("[MOBILE]", $data['mobile']??'', $template);
+		$template = str_replace("[NOTES]", $data['notes']??'', $template);
+		$template = str_replace("[RENEWAL]", $data['renewal']??'', $template);
+		$template = str_replace("[YEARS]", $data['years']??'', $template);
+		$template = str_replace("[RENEW_BTN]", $data['renew_btn']??'', $template);
 
 		if ($this->admin) {
-			$template = str_replace("[LAST]", $data['last_issue'], $template);
-			$template = str_replace("[FIRST]", $data['first_issue'], $template);
+			$template = str_replace("[LAST]", $data['last_issue']??'', $template);
+			$template = str_replace("[FIRST]", $data['first_issue']??'', $template);
 
 			$bob = new next_issue();
 			$template = str_replace("[CURRENT]", $bob->format(), $template);
 			$bob = new next_issue();
 			$template = str_replace("[CURRENT2]", $bob->current(), $template);
 
-			$template = str_replace("[PAYMATE_RESPONSE]", $data['paymate_response'], $template);
-			$template = str_replace("[PAYMATE_TXID]", $data['paymate_txid'], $template);
-			$template = str_replace("[PAYMATE_TEXT]", nl2br($data['paymate_text']), $template);
+			$template = str_replace("[PAYMATE_RESPONSE]", $data['paymate_response']??'', $template);
+			$template = str_replace("[PAYMATE_TXID]", $data['paymate_txid']??'', $template);
+			$template = str_replace("[PAYMATE_TEXT]", nl2br($data['paymate_text']??''), $template);
 			$template = str_replace("[TRANSACTIONS]", $this->xact, $template);
 			$search = '';
 		} else {
@@ -147,22 +147,22 @@ class update_form {
 			HERE;
 		}
 
-		$template = str_replace("[DATE]", $data['date_subscribed'], $template);
-		$template = str_replace("[METHOD]", $data['method'], $template);
-		$template = str_replace("[ADMIN]", $data['admin_notes'], $template);
-		$template = str_replace("[GIFT]", $data['gift'], $template);
-		$template = str_replace("[FREE]", $data['free'], $template);
-		$template = str_replace("[EMAIL2]", $data['email2'], $template);
-		$template = str_replace("[NAME2]", $data['name2'], $template);
-		$template = str_replace("[ADDRESS12]", $data['address12'], $template);
-		$template = str_replace("[ADDRESS22]", $data['address22'], $template);
-		$template = str_replace("[CITY2]", $data['city2'], $template);
-		$template = str_replace("[COUNTRY2]", $data['country2'], $template);
-		$template = str_replace("[REGION2]", $data['region2'], $template);
-		$template = str_replace("[REGIONO2]", $data['regiono2'], $template);
-		$template = str_replace("[PCODE2]", $data['pcode2'], $template);
-		$template = str_replace("[PHONE2]", $data['phone2'], $template);
-		$template = str_replace("[MOBILE2]", $data['mobile2'], $template);
+		$template = str_replace("[DATE]", $data['date_subscribed']??'', $template);
+		$template = str_replace("[METHOD]", $data['method']??'', $template);
+		$template = str_replace("[ADMIN]", $data['admin_notes']??'', $template);
+		$template = str_replace("[GIFT]", $data['gift']??'', $template);
+		$template = str_replace("[FREE]", $data['free']??'', $template);
+		$template = str_replace("[EMAIL2]", $data['email2']??'', $template);
+		$template = str_replace("[NAME2]", $data['name2']??'', $template);
+		$template = str_replace("[ADDRESS12]", $data['address12']??'', $template);
+		$template = str_replace("[ADDRESS22]", $data['address22']??'', $template);
+		$template = str_replace("[CITY2]", $data['city2']??'', $template);
+		$template = str_replace("[COUNTRY2]", $data['country2']??'', $template);
+		$template = str_replace("[REGION2]", $data['region2']??'', $template);
+		$template = str_replace("[REGIONO2]", $data['regiono2']??'', $template);
+		$template = str_replace("[PCODE2]", $data['pcode2']??'', $template);
+		$template = str_replace("[PHONE2]", $data['phone2']??'', $template);
+		$template = str_replace("[MOBILE2]", $data['mobile2']??'', $template);
 		$template = str_replace("[SEARCH]", $search, $template);
 
 		return $template;

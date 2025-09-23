@@ -31,7 +31,7 @@ function load_countries($id=153, $all=false){
             $sel=' selected="selected"';
         $out.="<option{$sel} value=\"{$row['id']}\">".htmlspecialchars($row['name']).'</option>';
     }
-    $res->free;
+    $res->free();
     return $out;
 }
 
