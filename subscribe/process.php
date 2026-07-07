@@ -1,8 +1,8 @@
 <?php
 session_start();
 require("../inc/connect.inc");
+require("../inc/stripe.php");
 define("TESTEMAIL",'info@jero.co.nz');
-define("TESTEMAIL2",'debug@jero.co.nz');
 
 // Hide the initial $_POST values in a session for use later
 unset($_SESSION['POST']);
@@ -73,7 +73,6 @@ if (!ctype_digit($country)){
     die('Skullduggery!');
 }
 
-$row=$mysqli->query("select iso from sub_countries where id={$country}")->fetch_assoc();
 switch ($country) {
     case AUS:
     case NZ:
@@ -118,34 +117,35 @@ if ($_POST['email'] == TESTEMAIL){
     $amt=1;
 }
 
-$paymate=array('mid'=>'nzoutdoor43',
-'currency' => 'NZD',
-'amt_editable' => 'N',
-'pmt_country' => $row['iso'],
-'return' => urlencode(RETURN_URL),
-'amt' => $amt,
-'ref' => $_POST['email'],
-'pmt_sender_email' => $_POST['email'],
-'pmt_contact_firstname' => $_POST['forename'],
-'pmt_contact_surname' => $_POST['surname'],
-'pmt_contact_phone' => $_POST['phone'],
-'regindi_address1' => $_POST['address1'],
-'regindi_address2' => $_POST['address2'],
-'regindi_pcode' =>$_POST['pcode'],
-'regindi_state' => $_POST['region'],
-'regindi_sub' => $_POST['city']);
+$description='NZ Outdoor Hunting Magazine Subscription';
+switch ($_POST['package']) {
+	case 6:
+	case 7:
+		$description.=' + free 75th Birthday Issue';
+		break;
+}
 
-$_SESSION['paymate']=$paymate;
+$session=stripe_create_checkout_session(array(
+    'mode' => 'payment',
+    'payment_method_types' => array('card'),
+    'customer_email' => $_POST['email'],
+    'client_reference_id' => $_POST['email'],
+    'success_url' => BASE_URL.'/subscribed.php?session_id={CHECKOUT_SESSION_ID}',
+    'cancel_url' => BASE_URL.'/index.php',
+    'line_items' => array(array(
+        'quantity' => 1,
+        'price_data' => array(
+            'currency' => 'nzd',
+            'unit_amount' => (int) round($amt*100),
+            'product_data' => array('name' => $description),
+        ),
+    )),
+));
 
-$url='https://www.paymate.com/PayMate/ExpressPayment';
+$_SESSION['stripe']=array('session_id' => $session['id'], 'amt' => $amt);
+$_SESSION['POST']['stripe_session_id']=$session['id'];
 
-// for testing by me
-if ($_POST['email'] == TESTEMAIL)
-    $url='fakeit.php';
-if ($_POST['email'] == TESTEMAIL2)
-    $url='fakeit.php';
-
-// Save session into DB for debug purposes - in case they don't return from Paymate
+// Save session into DB for debug purposes - in case they don't return from Stripe
 $tempsql='insert into sub_temp (data,IP,useragent) values (?,?,?)';
 $sess=serialize($_SESSION['POST']);
 $stmt=$mysqli->prepare($tempsql);
@@ -174,15 +174,6 @@ switch ($_POST['package']) {
 <p>Please ensure that you complete the payment process, which will return you to our website.</p>
 <p>You should receive an email confirmation from us when the process is complete. If you don't receive the email, please notify info@nzoutdoor.co.nz</p>
 <p>Please click the button below to continue.</p>
-<form method=post action="<?php echo $url ?>">
-<?php
-foreach ($_SESSION['paymate'] as $key=>$value){
-        echo "<input type=hidden name={$key} value=\"{$value}\">";
-}
-?>
-<button type=submit>
-<img src="https://www.paymate.com/images/Paymate-Express-Banner-190x60.gif" border="0" alt="Pay with Paymate Express">
-</button>
-</form>
+<p><a class="button" href="<?php echo htmlspecialchars($session['url']) ?>">Continue to secure payment</a></p>
 </div>
 <?php require("foot.inc")?>

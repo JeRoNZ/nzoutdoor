@@ -8,12 +8,12 @@ if (! array_key_exists('POST',$_SESSION)){
     header("Location: /");
     exit();
 }
-if (! array_key_exists('paymate',$_SESSION)){
+if (! array_key_exists('stripe',$_SESSION)){
     header("Location: /");
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST'){
+if (! isset($_GET['session_id']) || $_GET['session_id'] != $_SESSION['stripe']['session_id']){
     header("Location: /");
     exit();
 }
@@ -21,6 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST'){
 require("../inc/connect.inc");
 require("../inc/functions.inc");
 require("../inc/Next.inc");
+require("../inc/stripe.php");
+
+$session=stripe_retrieve_checkout_session($_GET['session_id']);
 
 $rid=0;
 $renewal='N';
@@ -70,7 +73,7 @@ else
 $pcode      = $_SESSION['POST']['pcode'];
 $phone      = $_SESSION['POST']['phone'];
 $mobile     = $_SESSION['POST']['mobile'];
-$notes      = $_SESSION['POST']['notes'];
+$notes      = $_SESSION['POST']['notes'] ?? '';
 $years      = $_SESSION['POST']['package'];
 $dvd        = $_SESSION['POST']['dvd'];
 
@@ -94,21 +97,9 @@ if ($renewal == 'N'){
     }
 }
 
-foreach($_POST as $key => $value){
-    $paymate_text.="{$key} = {$value}\n";
-}
-
-switch($_POST['responseCode']){
-       case 'PP':
-       case 'PA':     // even if accepted, a payment can be declined later on, so always assume pending
-            $paymate_response='PP';
-            break;
-       default:
-            $paymate_response=$_POST['responseCode'];
-            break;
-}
-
-$paymate_txid=$_POST['transactionID'];
+$paymate_text=stripe_session_text($session);
+$paymate_response=stripe_payment_status_code($session);
+$paymate_txid=$session['payment_intent']['id'] ?? $session['id'];
 
 $stamp=time();
 
@@ -176,7 +167,7 @@ Thank you for subscribing to NZ Outdoor Hunting Magazine.
 
 HERE;
 
-$amt=sprintf("%5.2f",$_SESSION['paymate']['amt']);
+$amt=sprintf("%5.2f",$_SESSION['stripe']['amt']);
 $mess.="You have requested a $years year subscription, which has been charged at NZ \${$amt}\n\n";
 
 if ($years == 2 && $dvd == 'Y') {

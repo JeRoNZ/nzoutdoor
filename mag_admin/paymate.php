@@ -2,10 +2,13 @@
 require("../inc/connect.inc");
 require("../inc/functions.inc");
 require("../inc/Next.inc");
-if (! isset($_GET['id']))
-	die('NO');
-if (! ctype_digit($_GET['id']))
-	die('NO');
+require("../inc/stripe.php");
+if (! isset($_GET['id'])) {
+    die('NO');
+}
+if (! ctype_digit($_GET['id'])) {
+    die('NO');
+}
 
 define('ID',$_GET['id']);
 
@@ -21,8 +24,7 @@ $row=$res->fetch_assoc();
 $_SESSION['POST']=unserialize($row['data']);
 var_dump($_SESSION['POST']);
 
-$_POST['responseCode']='PP';
-$_POST['transactionID']='none';
+$session = stripe_retrieve_checkout_session($_SESSION['POST']['stripe_session_id']);
 
 $rid=0;
 $renewal='N';
@@ -47,10 +49,12 @@ if (array_key_exists('gift',$_SESSION['POST'])){
     $address22  = $_SESSION['POST']['address22'];
     $city2      = $_SESSION['POST']['city2'];
     $country2   = $_SESSION['POST']['country2'];
-    if ($country2==153)
-        $region2= $_SESSION['POST']['region2'];
-    else
-        $region2= $_SESSION['POST']['regiono2'];
+    if ($country2==153) {
+        $region2 = $_SESSION['POST']['region2'];
+    }
+    else {
+        $region2 = $_SESSION['POST']['regiono2'];
+    }
     $pcode2     = $_SESSION['POST']['pcode2'];
     $phone2     = $_SESSION['POST']['phone2'];
     $mobile2    = $_SESSION['POST']['mobile2'];
@@ -65,10 +69,11 @@ $address1   = $_SESSION['POST']['address1'];
 $address2   = $_SESSION['POST']['address2'];
 $city       = $_SESSION['POST']['city'];
 $country    = $_SESSION['POST']['country'];
-if ($country==153)
+if ($country == 153) {
     $region = $_SESSION['POST']['region'];
-else
+} else {
     $region = $_SESSION['POST']['regiono'];
+}
 $pcode      = $_SESSION['POST']['pcode'];
 $phone      = $_SESSION['POST']['phone'];
 $mobile     = $_SESSION['POST']['mobile'];
@@ -96,21 +101,9 @@ if ($renewal == 'N'){
     }
 }
 
-foreach($_POST as $key => $value){
-    $paymate_text.="{$key} = {$value}\n";
-}
-
-switch($_POST['responseCode']){
-       case 'PP':
-       case 'PA':     // even if accepted, a payment can be declined later on, so always assume pending
-            $paymate_response='PP';
-            break;
-       default:
-            $paymate_response=$_POST['responseCode'];
-            break;
-}
-
-$paymate_txid=$_POST['transactionID'];
+$paymate_text = stripe_session_text($session);
+$paymate_response = stripe_payment_status_code($session);
+$paymate_txid = $session['payment_intent']['id'] ?? $session['id'];
 
 $stamp=time();
 
@@ -127,15 +120,17 @@ if ($renewal == 'N'){
     $stmt->bind_param("ssssssssdssssssdddsdsssssssdsssssd",$email,$title,$company,$forename,$surname,$address1,$address2,$city,$country,$region,$pcode,$phone,$mobile,$notes,$renewal,$years,$first_issue,$last_issue,$paymate_response,$paymate_txid,$paymate_text,$gift,$email2,$name2,$address12,$address22,$city2,$country2,$region2,$pcode2,$phone2,$mobile2,$dvd,$rid);
 }
 
-if ($email != TESTEMAIL)
+if ($email != TESTEMAIL) {
     $stmt->execute();
+}
 
 // Set the renewal ID code for new entries
 if ($renewal == "N"){
     $rid=$stmt->insert_id;
     $renewal_id=make_code($rid);
-    if ($email != TESTEMAIL)
+    if ($email != TESTEMAIL) {
         $mysqli->query("Update sub_subscribers set renewal_id='{$renewal_id}' where id=$rid");
+    }
 }
 $stmt->close();
 
@@ -144,8 +139,9 @@ $sql="insert into sub_renewals (id,first_issue,last_issue,years,method,date) val
 $stmt=$mysqli->prepare($sql);
 $stmt->bind_param("dddd",$rid,$tx_first_issue,$last_issue,$years);
 
-if ($email != TESTEMAIL)
+if ($email != TESTEMAIL) {
     $stmt->execute();
+}
 $stmt->close();
 
 
@@ -179,7 +175,7 @@ Thank you for subscribing to NZ Outdoor Hunting Magazine.
 
 HERE;
 
-$amt=sprintf("%5.2f",$_SESSION['paymate']['amt']);
+$amt = sprintf("%5.2f", $session['amount_total'] / 100);
 $mess.="You have requested a $years year subscription, which has been charged at NZ \${$amt}\n\n";
 
 if ($dvd=='Y'){

@@ -157,6 +157,25 @@ function csv_quote($string)
 }
 
 
+function stripe_payment_status_code($session){
+    if ($session['payment_status'] == 'paid')
+        return 'PA';
+    $intent=$session['payment_intent'] ?? null;
+    if (is_array($intent) && ($intent['status'] ?? '') == 'canceled')
+        return 'PD';
+    return 'PP';
+}
+
+function stripe_session_text($session){
+    $out='';
+    foreach ($session as $key => $value){
+        if (is_array($value))
+            $value=json_encode($value);
+        $out.="{$key} = {$value}\n";
+    }
+    return $out;
+}
+
 function last_issue($first_issue,$years){
     $y=substr($first_issue,0,4);
     $m=substr($first_issue,4,2);

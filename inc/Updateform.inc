@@ -40,7 +40,7 @@ class update_form {
 
 	function method ($pm = 'P') {
 		$out = '';
-		$text = array('', 'Paymate', 'Cheque', 'Cash/Eftpos', 'Free');
+		$text = array('', 'Stripe', 'Cheque', 'Cash/Eftpos', 'Free');
 		$value = array('', 'P', 'Q', 'C', 'F');
 		$template = '<input type="radio" [C] name="method" value="[V]" id="pm[I]">[T]<br>';
 		for ($i = 1; $i <= 4; $i++) {
@@ -143,8 +143,8 @@ class update_form {
 			<td class="hform"><label for="search_text">..or ID Search</label></td>
 			<td class="hform2"><input id="search_text" type="text" size="30" title="Enter your name and address as it appears on the flyer that comes with your magazine">
 			<button id="search">Search</button>
-			*/
 			HERE;
+			*/
 		}
 
 		$template = str_replace("[DATE]", $data['date_subscribed']??'', $template);
@@ -546,14 +546,14 @@ HERE;
     </tr>
 
     <tr>
-    <td class="hform"><label for="paymate_response">Paymate Response</label></td>
+    <td class="hform"><label for="paymate_response">Payment Response</label></td>
     <td class="hform2"><select id="paymate_response" name="paymate_response">[PAYMATE_RESPONSE]</select></td>
     </tr>
 
-    <tr><td>Paymate Transaction ID</td><td>[PAYMATE_TXID]</td></tr>
+    <tr><td>Stripe Transaction ID</td><td>[PAYMATE_TXID]</td></tr>
     <tr><td>Renewals</td><td>[TRANSACTIONS]</td></tr>
 
-    <tr><td>Paymate text</td><td id="Paymatedata">[PAYMATE_TEXT]</td></tr>
+    <tr><td>Stripe details</td><td id="Paymatedata">[PAYMATE_TEXT]</td></tr>
     </table>
 </td>
 </tr>

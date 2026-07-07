@@ -35,7 +35,7 @@ function do_links() {
 <li class=maint><a href="list6.php">Complimentary list</a>
 <li class=maint><a href="dump.php">Backup database</a>
 <li class=maint><a href="report1.php">Subscription report</a>
-<li class=maint><a href="plist.php">Paymate failures</a>
+<li class=maint><a href="plist.php">Payment failures</a>
 <li class=maint><a href="{$_SERVER['PHP_SELF']}?action=logout">Logout</a>
 </ul>
 HERE;
