@@ -1,0 +1,1 @@
+Cufon.replace('.main-text,h1,h2,h3,h4,h5,h6,.box-404 .blue,figcaption',{fontFamily:'Franklin Gothic Medium'})

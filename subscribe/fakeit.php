@@ -9,7 +9,7 @@ $ret=urldecode($_SESSION['paymate']['return']);
 <form method=POST action="<?php echo $ret;?>">
 <input type=hidden name="transactionID" value="1245678901">
 <input type=hidden name="responseCode" value="PA">
-<input type=hidden name="paymentAmount" value="<? echo $_SESSION['paymate']['amt']?>">
+<input type=hidden name="paymentAmount" value="<?php echo $_SESSION['paymate']['amt']?>">
 <input type=hidden name="currency" value="NZD">
 <input type=hidden name="paymentDate" value="paymentDate">
 <input type=hidden name="ref" value="ref">

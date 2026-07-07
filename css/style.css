@@ -1,7 +1,7 @@
 @import"reset.css";@import"superfish.css";@import"grid.css";@import"coin-slider.css";@import"forms.css";@import"prettyPhoto.css";@import"galleryfic.css";@import"kwicks.css";@import"skin.css";
 body{
 	background: url(../images/body-texture.jpg) 50% 0 repeat #2c2c2c;
-	font: 12px Arial, Helvetica, sans-serif;
+	font: 14px Arial, Helvetica, sans-serif;
 	color: #63615e;
 	position: relative;
 	min-width: 960px;
@@ -22,13 +22,15 @@ a:focus{border:none;outline:none;}
 a:hover{
 	text-decoration: none;
 	/* [disabled]font-size: 16px; */
+	text-align: right;
 }
 .clear{clear:both;line-height:0;font-size:0;overflow:hidden;height:0;width:100%;}
 .wrapper{width:100%;overflow:hidden;}
 .extra-wrap{overflow:hidden;display:block;}
 p{
-	margin-bottom:18px;
+	margin-bottom: 18px;
 	text-align: left;
+	font-size: 14px;
 }
 .p0{margin-bottom:0 !important}
 .p1{margin-bottom:8px !important}
@@ -110,18 +112,18 @@ header .links{overflow:hidden;}
 header .links li{float:left;width:317px;font-size:15px;line-height:20px;}
 header .links li:first-child{width:316px;}
 header .links li a{
-	color:#fff;
-	text-decoration:none;
-	display:block;
-	padding:25px 25px 0 25px;
-	height:136px;
-	overflow:hidden;
-	background-image:url(../images/links-tail.jpg);
-	background-position:0 0;
-	background-repeat:repeat;
-	position:relative;
-	background-color:#fff;
-	height:85px;
+	color: #fff;
+	text-decoration: none;
+	display: block;
+	padding: 15px 15px 15px;
+	height: 136px;
+	overflow: hidden;
+	background-image: url(../images/links-tail.jpg);
+	background-position: 0 0;
+	background-repeat: repeat;
+	position: relative;
+	background-color: #fff;
+	height: 70px;
 }
 header .links li a img{float:left;margin-right:28px;}
 header .links li a span{display:block;overflow:hidden;padding:6px 0 0;}
@@ -131,11 +133,11 @@ section#content{
 }
 /*  Header styles */
 h1,h2,h3,h4,h5,h6{
-	margin:0 0 37px;
-	line-height:18pt;
-	color:#414141;
-	font-weight:normal;
-	letter-spacing:-1px;
+	margin: 0 0 10px;
+	line-height: 18pt;
+	color: #414141;
+	font-weight: normal;
+	letter-spacing: -1px;
 }
 h1{font-size:40px;}
 h2{font-size:35px;}
@@ -476,4 +478,17 @@ a#aToolTipCloseBtn{display:block;height:20px;width:20px;overflow:hidden;backgrou
 }
 .bg #content .container_24 .wrapper.p7 .grid_8.prefix_1 table tr td span strong span {
 	font-size: 12px;
+}
+.bg #content .container_24 table {
+	text-align: right;
+}
+.bg #content .container_24 table tr td p span a {
+	text-align: right;
+}
+.bg #content .container_24 table {
+	font-size: 10px;
+	text-align: right;
+}
+.bg #content .container_24 table tr td #yui_3_16_0_1_1457033097366_2702 {
+	font-size: 16px;
 }

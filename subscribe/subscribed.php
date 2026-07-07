@@ -236,4 +236,4 @@ require("head.inc");
 <div id="subscribediv">
 <p class="heading_large">Subscribe Online</p>
 <p>Thank you for subscribing to NZ Outdoor Hunting Magazine!</p></div>
-<? require("foot.inc");?>
+<?php require("foot.inc");?>
